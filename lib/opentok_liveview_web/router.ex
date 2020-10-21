@@ -18,6 +18,7 @@ defmodule OpentokLiveviewWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/room/:room_name/:username", RoomLive, :index
   end
 
   # Other scopes may use custom stacks.

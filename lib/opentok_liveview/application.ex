@@ -11,6 +11,7 @@ defmodule OpentokLiveview.Application do
       OpentokLiveviewWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: OpentokLiveview.PubSub},
+      OpentokLiveview.RoomMaster,
       # Start the Endpoint (http/https)
       OpentokLiveviewWeb.Endpoint
       # Start a worker by calling: OpentokLiveview.Worker.start_link(arg)

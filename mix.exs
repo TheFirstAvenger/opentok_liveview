@@ -33,6 +33,7 @@ defmodule OpentokLiveview.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:ex_opentok, github: "docJerem/ex_opentok"},
       {:phoenix, "~> 1.5.5"},
       {:phoenix_live_view, "~> 0.14.6"},
       {:floki, ">= 0.27.0", only: :test},

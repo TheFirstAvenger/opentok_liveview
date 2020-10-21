@@ -1,48 +1,37 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-
-  <form phx-change="suggest" phx-submit="search">
-    <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/>
-    <datalist id="results">
-      <%= for {app, _vsn} <- @results do %>
-        <option value="<%= app %>"><%= app %></option>
+  <h1><%= gettext "Welcome to %{name}!", name: "LiveView OpenTok Video Chat" %></h1>
+  <p>Peace of mind from camera to camera</p>
+</section>
+<%= if is_nil(@username) do %>
+  <%= form_for :set_username, "#", phx_submit: "set_username" %>
+  <%= text_input :set_username, :username %>
+  <%= submit "Set Username" %>
+<% else %>
+  Username: <%= @username %>
+<% end %>
+<h1>Rooms</h1>
+<table>
+  <tr>
+    <th>Name:</th>
+    <th>User Count:</th>
+    <th></h>
+  </tr>
+<%= for {name, count} <- @rooms do %>
+  <tr>
+    <td><%= name %></td>
+    <td><%= count %></td>
+    <td>
+      <%= if !is_nil(@username) do %>
+        <button phx-click="join_room" phx-value-room_name="<%= name %>">Join</button>
       <% end %>
-    </datalist>
-    <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button>
-  </form>
-</section>
+  </tr>
+<% end %>
+</table>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">v1.5 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-    </ul>
-  </article>
-</section>
+<%= if is_nil(@username) do %>
+  Set a username to create a room
+<% else %>
+  <%= form_for :create_room, "#", phx_submit: "create_room" %>
+  <%= text_input :create_room, :room_name %>
+  <%= submit "Create Room" %>
+<% end %>
